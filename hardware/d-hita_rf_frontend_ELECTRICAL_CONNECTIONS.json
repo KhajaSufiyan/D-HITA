@@ -1,0 +1,114 @@
+[
+  {
+    "type": "data",
+    "source": "uhf_patch",
+    "target": "uhf_probe_feed",
+    "sourcePin": "probe",
+    "targetPin": "probe",
+    "description": "UHF Radiating Patch -> UHF Probe Feed Via. Probe located 30 mm off patch centre along the resonant length, transitioning from Z = 3.5 mm down to the ground reference at Z = 0."
+  },
+  {
+    "type": "data",
+    "source": "uhf_probe_feed",
+    "target": "uhf_matching_pad",
+    "sourcePin": "probe",
+    "targetPin": "IN",
+    "description": "UHF Probe Feed Via -> UHF Matching Pad Site. 50 ohm microstrip on Kapton flex (er = 3.5, h = 3.5 mm)."
+  },
+  {
+    "type": "data",
+    "source": "uhf_matching_pad",
+    "target": "uhf_output_ufl",
+    "sourcePin": "OUT",
+    "targetPin": "signal",
+    "description": "UHF Matching Pad Site -> UHF Radio U.FL. Series position populated 0 ohm; shunt positions DNP until VNA trimming."
+  },
+  {
+    "type": "data",
+    "source": "uhf_output_ufl",
+    "target": "uhf_coax_pigtail",
+    "sourcePin": "signal",
+    "targetPin": "ufl_end",
+    "description": "UHF Radio U.FL -> UHF Coax Pigtail. 50 ohm ruggedized coax to the bulkhead connector, routed along the helmet shell."
+  },
+  {
+    "type": "data",
+    "source": "lband_patch",
+    "target": "lband_probe_feed",
+    "sourcePin": "probe",
+    "targetPin": "probe",
+    "description": "L-Band Radiating Patch -> L-Band Probe Feed Via. Probe located 16 mm off patch centre, transitioning from Z = 3.5 mm down to Z = 0."
+  },
+  {
+    "type": "data",
+    "source": "lband_probe_feed",
+    "target": "lband_matching_pad",
+    "sourcePin": "probe",
+    "targetPin": "IN",
+    "description": "L-Band Probe Feed Via -> L-Band Matching Pad Site. 50 ohm microstrip on Kapton flex."
+  },
+  {
+    "type": "data",
+    "source": "lband_matching_pad",
+    "target": "lband_output_ufl",
+    "sourcePin": "OUT",
+    "targetPin": "signal",
+    "description": "L-Band Matching Pad Site -> L-Band Video U.FL. Series position populated 0 ohm; shunt positions DNP until VNA trimming."
+  },
+  {
+    "type": "data",
+    "source": "lband_output_ufl",
+    "target": "lband_coax_pigtail",
+    "sourcePin": "signal",
+    "targetPin": "ufl_end",
+    "description": "L-Band Video U.FL -> L-Band Coax Pigtail. 50 ohm ruggedized coax to the bulkhead connector."
+  },
+  {
+    "type": "ground",
+    "source": "rf_shield_ground",
+    "target": "uhf_probe_feed",
+    "sourcePin": "plane",
+    "targetPin": "ground",
+    "description": "Underside RF Shield / Ground Plane -> UHF Probe Feed Via. Ground return at Z = 0; this plane is both the patch ground and the head-isolation shield."
+  },
+  {
+    "type": "ground",
+    "source": "rf_shield_ground",
+    "target": "lband_probe_feed",
+    "sourcePin": "plane",
+    "targetPin": "ground",
+    "description": "Underside RF Shield / Ground Plane -> L-Band Probe Feed Via. Ground return at Z = 0."
+  },
+  {
+    "type": "ground",
+    "source": "rf_shield_ground",
+    "target": "uhf_matching_pad",
+    "sourcePin": "plane",
+    "targetPin": "GND",
+    "description": "Underside RF Shield / Ground Plane -> UHF Matching Pad Site shunt returns."
+  },
+  {
+    "type": "ground",
+    "source": "rf_shield_ground",
+    "target": "lband_matching_pad",
+    "sourcePin": "plane",
+    "targetPin": "GND",
+    "description": "Underside RF Shield / Ground Plane -> L-Band Matching Pad Site shunt returns."
+  },
+  {
+    "type": "ground",
+    "source": "rf_shield_ground",
+    "target": "uhf_output_ufl",
+    "sourcePin": "plane",
+    "targetPin": "ground",
+    "description": "Underside RF Shield / Ground Plane -> UHF Radio U.FL shell ground."
+  },
+  {
+    "type": "ground",
+    "source": "rf_shield_ground",
+    "target": "lband_output_ufl",
+    "sourcePin": "plane",
+    "targetPin": "ground",
+    "description": "Underside RF Shield / Ground Plane -> L-Band Video U.FL shell ground."
+  }
+]

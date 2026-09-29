@@ -1,0 +1,252 @@
+{
+  "projectName": "D-HITA RF Frontend (Passive Dual-Feed, Kapton Flex)",
+  "projectDescription": "Fully passive dual-band RF frontend integrated onto the same Kapton flex substrate as the two radiating patches. The UHF patch (460 MHz) and the L-band patch (1364 MHz) are independent radiating elements, each with its own matching pad site and its own U.FL output. Both bands operate simultaneously - no switching, no MCU, no onboard power. Conformal to helmet curvature.",
+  "revision": "R2 - 2026-09-28. Supersedes the active-switch revision (SKY13350 + ESP32-C3 + Li-Po on Rogers 4350B in an enclosure), which is rejected and must not be built.",
+  "plan": [
+    "Two independent probe-fed patches on one shared Kapton_flex sheet (h = 3.5 mm, er = 3.5, tan d = 0.002). No shared aperture, no diplexer, no RF switch, no crossover frequency.",
+    "Each patch probe routes to a dedicated 3-position matching pad site: series position populated with a 0 ohm 0402 jumper, two shunt-to-ground positions left DNP until VNA trimming on the physical board.",
+    "Each matching site terminates in its own U.FL connector, then a 50 ohm coaxial pigtail to a ruggedized bulkhead connector routed along the helmet shell.",
+    "50 ohm microstrip trace width calculated for er = 3.5 at h = 3.5 mm; confirm against the flex fab house stackup before release.",
+    "Polyimide coverlay laminated over feed routing and matching sites ONLY - radiating patch areas must be left clear or both bands detune."
+  ],
+  "notes": [
+    "fully passive - zero active components",
+    "dual independent feeds - both bands simultaneous",
+    "Kapton flex substrate (NOT Rogers 4350B)",
+    "conformal to helmet curvature",
+    "no enclosure - flex board mounts directly, external side-mounted (Design 3)",
+    "simulation validated in CST Studio - flat design complete"
+  ],
+  "substrate": {
+    "material": "Kapton_flex (polyimide flex laminate)",
+    "dielectricConstant": 3.5,
+    "lossTangent": 0.002,
+    "thickness_mm": 3.5,
+    "fabricationNote": "3.5 mm is the CST-simulated electrical thickness both bands are tuned to. Solid 3.5 mm Kapton laminate is not a stock product - realise as a thin Kapton patch/feed layer over a flexible foam or silicone spacer. OPEN FABRICATION ITEM.",
+    "rationale": "Substrate THICKNESS, not material, was the dominant efficiency lever. At h = 0.2 mm the UHF patch radiated ~14% (h/lambda ~ 0.0003, ~88% of accepted power lost in the dielectric). Growing h fixed it. Rogers 4350B was rejected because it is rigid and cannot conform to helmet curvature."
+  },
+  "boardGeometry": {
+    "note": "Single shared Ground + Substrate rectangle carrying both patches. Dimensions from the combined CST project.",
+    "groundAndSubstrate_mm": { "xMin": -125, "xMax": 125, "yMin": -125, "yMax": 320, "zMin": 0, "zMax": 3.5 },
+    "uhfPatch": { "centreY_mm": 0, "L_mm": 170.4, "W_mm": 148.8, "probeOffsetX_mm": 30, "patchZ_mm": 3.5 },
+    "lbandPatch": { "centreY_mm": 250, "L_mm": 55.1, "W_mm": 74, "probeOffsetX_mm": 16, "patchZ_mm": 3.5 },
+    "patchEdgeSeparation_mm": 65,
+    "measuredIsolation_dB": "-50 to -90 typical across the range; worst case -30 to -40 in the 900-1200 MHz dead zone between bands. 65 mm separation is sufficient - no redesign needed for coupling.",
+    "groundPlane": "PEC, zero-thickness, at Z = 0. This is also the underside RF shield required by the SIH26185 problem statement."
+  },
+  "bands": [
+    {
+      "id": "uhf",
+      "label": "UHF TO RADIO",
+      "simulatedResonance_MHz": 460,
+      "standaloneResonance_MHz": 436,
+      "shiftNote": "Resonance moved +24 MHz (+5.5%) from the 436 MHz standalone result due to coupling with the L-band patch in the combined layout. Accepted as a flagged deviation rather than re-tuning. 460 MHz is still inside the confirmed NSG/MHA UHF band of 403-470 MHz.",
+      "bandSpec_MHz": "403-470 (confirmed, MHA/CRPF QRs June 2025, co-signed by NSG)",
+      "s11_dB": -9.6,
+      "radiationEfficiency_dB": -1.319,
+      "radiationEfficiency_pct": 74,
+      "totalEfficiency_dB": -1.813,
+      "totalEfficiency_pct": 66,
+      "gain_dBi": 6.84,
+      "bandwidth": "NOT YET MEASURED - carried as known debt"
+    },
+    {
+      "id": "lband",
+      "label": "LBAND TO VIDEO",
+      "simulatedResonance_MHz": 1364,
+      "standaloneResonance_MHz": 1363,
+      "shiftNote": "Essentially unmoved by coupling (1363 -> 1364 MHz). Match depth degraded from standalone -24.7/-31 dB to -10.152 dB, which still meets the -10 dB target.",
+      "bandSpec_MHz": "1350-1450 working assumption. Exact NSG body-worn video RF link frequency [TO BE CLARIFIED].",
+      "s11_dB": -10.152,
+      "radiationEfficiency_dB": -0.35,
+      "radiationEfficiency_pct": 92,
+      "totalEfficiency_dB": -0.79,
+      "totalEfficiency_pct": 83,
+      "gain_dBi": 7.39,
+      "bandwidth_MHz": 35,
+      "bandwidthNote": "-10 dB bandwidth ~35 MHz measured at the standalone h=3.5mm stage; clears the 28 MHz buffer floor."
+    }
+  ],
+  "nodes": [
+    {
+      "id": "uhf_patch",
+      "name": "UHF Radiating Patch",
+      "type": "other",
+      "category": "electrical",
+      "pins": ["probe"],
+      "quantity": 1,
+      "dimensions": "170.4 x 148.8 mm, zero-thickness PEC at Z = 3.5 mm",
+      "description": "UHF radiating element, etched copper on the Kapton flex top layer. Probe-fed at 30 mm offset from patch centre along the resonant length. Not a purchased part.",
+      "estimatedCost": 0
+    },
+    {
+      "id": "uhf_probe_feed",
+      "name": "UHF Probe Feed Via",
+      "type": "other",
+      "category": "electrical",
+      "pins": ["probe", "ground"],
+      "quantity": 1,
+      "description": "Plated via / probe transition from the UHF patch at Z = 3.5 mm down to the ground reference at Z = 0, carrying the 50 ohm feed. Formed in the flex stackup, not a purchased part.",
+      "estimatedCost": 0
+    },
+    {
+      "id": "uhf_matching_pad",
+      "name": "UHF Matching Pad Site",
+      "type": "other",
+      "category": "electrical",
+      "pins": ["IN", "OUT", "GND"],
+      "quantity": 1,
+      "dimensions": "approx 6 x 3 mm pad cluster",
+      "description": "Three-position matching site for the 460 MHz feed. Series position populated with a 0 ohm 0402 jumper; two shunt-to-ground positions left DNP. Values determined empirically on the VNA after fabrication - NOT pre-calculated, because the simulated match is already -9.6 dB and the physical board will differ.",
+      "populated": ["0 ohm 0402 series jumper"],
+      "dnp": ["shunt position A", "shunt position B"],
+      "trimPartsToHaveOnHand": "Murata LQW15A series 0402 inductors (Q > 30 at 460 MHz), Murata GRM1555 / TDK C1005 0402 C0G/NP0 capacitors. No X5R/X7R.",
+      "estimatedCost": 0.3
+    },
+    {
+      "id": "uhf_output_ufl",
+      "name": "UHF Radio U.FL",
+      "type": "module",
+      "category": "electrical",
+      "pins": ["signal", "ground"],
+      "quantity": 1,
+      "dimensions": "3x3x1.3mm",
+      "productName": "Hirose U.FL-R-SMT-1(10)",
+      "description": "Miniature surface-mount coaxial connector, UHF output to the handheld radio.",
+      "purchaseUrl": "https://www.digikey.com/en/products/detail/hirose-electric-co-ltd/U.FL-R-SMT-1-10/1126786",
+      "estimatedCost": 1.25
+    },
+    {
+      "id": "lband_patch",
+      "name": "L-Band Radiating Patch",
+      "type": "other",
+      "category": "electrical",
+      "pins": ["probe"],
+      "quantity": 1,
+      "dimensions": "55.1 x 74 mm, zero-thickness PEC at Z = 3.5 mm",
+      "description": "L-band radiating element, etched copper on the Kapton flex top layer, centred 250 mm from the UHF patch. Probe-fed at 16 mm offset from patch centre. Not a purchased part.",
+      "estimatedCost": 0
+    },
+    {
+      "id": "lband_probe_feed",
+      "name": "L-Band Probe Feed Via",
+      "type": "other",
+      "category": "electrical",
+      "pins": ["probe", "ground"],
+      "quantity": 1,
+      "description": "Plated via / probe transition from the L-band patch at Z = 3.5 mm down to the ground reference at Z = 0. Formed in the flex stackup, not a purchased part.",
+      "estimatedCost": 0
+    },
+    {
+      "id": "lband_matching_pad",
+      "name": "L-Band Matching Pad Site",
+      "type": "other",
+      "category": "electrical",
+      "pins": ["IN", "OUT", "GND"],
+      "quantity": 1,
+      "dimensions": "approx 6 x 3 mm pad cluster",
+      "description": "Three-position matching site for the 1364 MHz feed. Series position populated with a 0 ohm 0402 jumper; two shunt-to-ground positions left DNP. Trimmed on the VNA after fabrication.",
+      "populated": ["0 ohm 0402 series jumper"],
+      "dnp": ["shunt position A", "shunt position B"],
+      "trimPartsToHaveOnHand": "Murata LQW15A series 0402 inductors (Q > 30 at 1364 MHz), Murata GRM1555 / TDK C1005 0402 C0G/NP0 capacitors.",
+      "estimatedCost": 0.3
+    },
+    {
+      "id": "lband_output_ufl",
+      "name": "L-Band Video U.FL",
+      "type": "module",
+      "category": "electrical",
+      "pins": ["signal", "ground"],
+      "quantity": 1,
+      "dimensions": "3x3x1.3mm",
+      "productName": "Hirose U.FL-R-SMT-1(10)",
+      "description": "Miniature surface-mount coaxial connector, L-band output to the body-worn video system.",
+      "purchaseUrl": "https://www.digikey.com/en/products/detail/hirose-electric-co-ltd/U.FL-R-SMT-1-10/1126786",
+      "estimatedCost": 1.25
+    },
+    {
+      "id": "uhf_coax_pigtail",
+      "name": "UHF Coax Pigtail",
+      "type": "other",
+      "category": "electrical",
+      "pins": ["ufl_end", "bulkhead_end"],
+      "quantity": 1,
+      "description": "50 ohm ruggedized coaxial pigtail, U.FL plug to bulkhead connector, routed cleanly along the helmet shell per the SIH26185 rugged-coax requirement. Length set at mechanical integration. Bulkhead connector type [TO BE CLARIFIED].",
+      "estimatedCost": 3.5
+    },
+    {
+      "id": "lband_coax_pigtail",
+      "name": "L-Band Coax Pigtail",
+      "type": "other",
+      "category": "electrical",
+      "pins": ["ufl_end", "bulkhead_end"],
+      "quantity": 1,
+      "description": "50 ohm ruggedized coaxial pigtail, U.FL plug to bulkhead connector.",
+      "estimatedCost": 3.5
+    },
+    {
+      "id": "rf_shield_ground",
+      "name": "Underside RF Shield / Ground Plane",
+      "type": "other",
+      "category": "mechanical",
+      "quantity": 1,
+      "dimensions": "250 x 445 mm copper plane at Z = 0",
+      "description": "Continuous conductive underside layer serving as both the patch ground plane and the head-isolation shield required by the SIH26185 problem statement. Modelled as zero-thickness PEC at Z = 0 in CST. Physical material and exact geometry [TO BE CLARIFIED].",
+      "estimatedCost": 2.0
+    },
+    {
+      "id": "polyimide_coverlay",
+      "name": "Polyimide Protective Coverlay",
+      "type": "other",
+      "category": "mechanical",
+      "quantity": 1,
+      "dimensions": "cut to feed/matching/connector regions only - radiating patch areas MUST be left clear",
+      "productName": "Dupont Pyralux LF0110",
+      "description": "Flexible polyimide film coverlay with acrylic adhesive protecting the feed routing, matching pad sites and U.FL terminations. Must NOT cover the radiating patch areas - added dielectric loading over a patch detunes it.",
+      "estimatedCost": 1.5
+    }
+  ],
+  "electricalConnections": [
+    { "type": "data", "source": "uhf_patch",         "target": "uhf_probe_feed",     "sourcePin": "probe",  "targetPin": "probe" },
+    { "type": "data", "source": "uhf_probe_feed",    "target": "uhf_matching_pad",   "sourcePin": "probe",  "targetPin": "IN" },
+    { "type": "data", "source": "uhf_matching_pad",  "target": "uhf_output_ufl",     "sourcePin": "OUT",    "targetPin": "signal" },
+    { "type": "data", "source": "uhf_output_ufl",    "target": "uhf_coax_pigtail",   "sourcePin": "signal", "targetPin": "ufl_end" },
+    { "type": "data", "source": "lband_patch",        "target": "lband_probe_feed",   "sourcePin": "probe",  "targetPin": "probe" },
+    { "type": "data", "source": "lband_probe_feed",   "target": "lband_matching_pad", "sourcePin": "probe",  "targetPin": "IN" },
+    { "type": "data", "source": "lband_matching_pad", "target": "lband_output_ufl",   "sourcePin": "OUT",    "targetPin": "signal" },
+    { "type": "data", "source": "lband_output_ufl",   "target": "lband_coax_pigtail", "sourcePin": "signal", "targetPin": "ufl_end" },
+    { "type": "ground", "source": "rf_shield_ground", "target": "uhf_probe_feed",     "sourcePin": "plane", "targetPin": "ground" },
+    { "type": "ground", "source": "rf_shield_ground", "target": "lband_probe_feed",   "sourcePin": "plane", "targetPin": "ground" },
+    { "type": "ground", "source": "rf_shield_ground", "target": "uhf_matching_pad",   "sourcePin": "plane", "targetPin": "GND" },
+    { "type": "ground", "source": "rf_shield_ground", "target": "lband_matching_pad", "sourcePin": "plane", "targetPin": "GND" },
+    { "type": "ground", "source": "rf_shield_ground", "target": "uhf_output_ufl",     "sourcePin": "plane", "targetPin": "ground" },
+    { "type": "ground", "source": "rf_shield_ground", "target": "lband_output_ufl",   "sourcePin": "plane", "targetPin": "ground" }
+  ],
+  "removedFromPriorRevision": [
+    "Skyworks SKY13350-390LF GaAs SPDT RF switch - no longer a switched design; both bands run simultaneously through independent feeds",
+    "Espressif ESP32-C3-MINI-1-N4 MCU - no active control needed in a passive design",
+    "Nanjing Lishuan TP4056 Li-Po charger IC - no onboard power",
+    "Texas Instruments TPS63030 buck-boost regulator - no onboard power",
+    "PKCELL LP503035 Li-Po battery 3.7V 500mAh - no onboard power",
+    "ON Semi MBR0520LT1G Schottky diode - no power rail to protect",
+    "GCT USB4105-GF-A USB-C receptacle - nothing to charge or program",
+    "Murata GRM1555C1H104JA01D VDD bypass capacitor - no VDD rail exists",
+    "Yageo RC0402JR-0710KL 10k VCTL pulldown - no control line exists",
+    "Antenna Input U.FL - the patches are on this same board, so there is no external antenna input port",
+    "Rogers 4350B substrate - replaced by Kapton flex; Rogers is rigid and cannot conform to helmet curvature",
+    "60 x 40 mm board footprint and all enclosure parts (base, lid, standoffs, screws, heatsink) - the frontend is now integrated on the antenna flex sheet, no rigid case",
+    "Qorvo SPF5189Z LNA, SOT-363 footprint and bias tee - passive-only baseline, no LNA in V1",
+    "LC diplexer and 900 MHz crossover - obsolete; independent per-band feeds make a diplexer unnecessary",
+    "GPIO9 / VCTL switching logic and all firmware steps - nothing to program"
+  ],
+  "openItems": [
+    "Exact NSG L-band video link frequency [TO BE CLARIFIED]",
+    "3.5 mm flexible substrate realisation - Kapton layer over foam/silicone spacer, not solid Kapton",
+    "Ruggedized bulkhead connector selection (SMA vs TNC) [TO BE CLARIFIED]",
+    "RF shield material and exact geometry [TO BE CLARIFIED]",
+    "Helmet model, shell material and approved mounting method [TO BE CLARIFIED]",
+    "UHF -10 dB bandwidth not yet measured - known debt",
+    "Conformal (curved) simulation and helmet + head model not yet run - flat design only"
+  ],
+  "projectId": "86c8a791-7034-4f58-8993-ff84d0380335"
+}

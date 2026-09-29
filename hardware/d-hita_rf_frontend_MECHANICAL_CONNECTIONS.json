@@ -1,0 +1,100 @@
+[
+  {
+    "delta": { "x": 0, "y": 0, "z": 0 },
+    "label": "etched copper on flex top layer",
+    "source": "kapton_flex_substrate",
+    "target": "uhf_patch",
+    "description": "Kapton Flex Substrate <-> UHF Radiating Patch - etched copper on the top layer at Z = 3.5 mm, centred at Y = 0. Patch footprint 170.4 x 148.8 mm."
+  },
+  {
+    "delta": { "x": 0, "y": 250, "z": 0 },
+    "label": "etched copper on flex top layer",
+    "source": "uhf_patch",
+    "target": "lband_patch",
+    "description": "UHF Radiating Patch <-> L-Band Radiating Patch - L-band patch centre sits 250 mm along +Y from the UHF patch centre, giving ~65 mm edge-to-edge separation. Measured isolation -50 to -90 dB typical; this spacing must not be reduced."
+  },
+  {
+    "delta": { "x": 0, "y": 0, "z": -3.5 },
+    "label": "flex stackup layer",
+    "source": "uhf_patch",
+    "target": "rf_shield_ground",
+    "description": "UHF Radiating Patch <-> Underside RF Shield / Ground Plane - ground plane sits 3.5 mm below the patch layer at Z = 0, spanning the full 250 x 445 mm board. This 3.5 mm separation is the efficiency-critical dimension and must not be reduced."
+  },
+  {
+    "delta": { "x": 30, "y": 0, "z": -3.5 },
+    "label": "plated via through substrate",
+    "source": "uhf_patch",
+    "target": "uhf_probe_feed",
+    "description": "UHF Radiating Patch <-> UHF Probe Feed Via - probe located 30 mm from patch centre along +X (the resonant length direction), passing vertically through the 3.5 mm substrate."
+  },
+  {
+    "delta": { "x": 8, "y": 0, "z": 0 },
+    "label": "Flex PCB trace",
+    "source": "uhf_probe_feed",
+    "target": "uhf_matching_pad",
+    "description": "UHF Probe Feed Via <-> UHF Matching Pad Site - matching pad cluster sits 8 mm along +X from the probe via, on the feed routing layer. Keep the trace short to minimise parasitic inductance at 460 MHz."
+  },
+  {
+    "delta": { "x": 8, "y": 0, "z": 0 },
+    "label": "Flex PCB trace",
+    "source": "uhf_matching_pad",
+    "target": "uhf_output_ufl",
+    "description": "UHF Matching Pad Site <-> UHF Radio U.FL - connector sits 8 mm along +X from the matching pad cluster."
+  },
+  {
+    "delta": { "x": 16, "y": 0, "z": -3.5 },
+    "label": "plated via through substrate",
+    "source": "lband_patch",
+    "target": "lband_probe_feed",
+    "description": "L-Band Radiating Patch <-> L-Band Probe Feed Via - probe located 16 mm from patch centre along +X, passing vertically through the 3.5 mm substrate."
+  },
+  {
+    "delta": { "x": 6, "y": 0, "z": 0 },
+    "label": "Flex PCB trace",
+    "source": "lband_probe_feed",
+    "target": "lband_matching_pad",
+    "description": "L-Band Probe Feed Via <-> L-Band Matching Pad Site - matching pad cluster sits 6 mm along +X from the probe via. Trace length matters more here than at UHF; keep it as short as the pad cluster allows."
+  },
+  {
+    "delta": { "x": 6, "y": 0, "z": 0 },
+    "label": "Flex PCB trace",
+    "source": "lband_matching_pad",
+    "target": "lband_output_ufl",
+    "description": "L-Band Matching Pad Site <-> L-Band Video U.FL - connector sits 6 mm along +X from the matching pad cluster."
+  },
+  {
+    "delta": { "x": 0, "y": 0, "z": 1.3 },
+    "label": "U.FL plug mated to receptacle",
+    "source": "uhf_output_ufl",
+    "target": "uhf_coax_pigtail",
+    "description": "UHF Radio U.FL <-> UHF Coax Pigtail - pigtail plug mates vertically onto the receptacle. Provide strain relief within 20 mm of the connector; U.FL is rated for limited mating cycles and is the weakest mechanical point on the board."
+  },
+  {
+    "delta": { "x": 0, "y": 0, "z": 1.3 },
+    "label": "U.FL plug mated to receptacle",
+    "source": "lband_output_ufl",
+    "target": "lband_coax_pigtail",
+    "description": "L-Band Video U.FL <-> L-Band Coax Pigtail - pigtail plug mates vertically onto the receptacle. Same strain-relief requirement."
+  },
+  {
+    "delta": { "x": 0, "y": 0, "z": 0.025 },
+    "label": "Laminated adhesive",
+    "source": "uhf_matching_pad",
+    "target": "polyimide_coverlay",
+    "description": "UHF Matching Pad Site <-> Polyimide Protective Coverlay - coverlay laminated over the feed routing and matching region only. MUST NOT extend over the radiating patch area; added dielectric loading there detunes the band."
+  },
+  {
+    "delta": { "x": 0, "y": 0, "z": 0.025 },
+    "label": "Laminated adhesive",
+    "source": "lband_matching_pad",
+    "target": "polyimide_coverlay",
+    "description": "L-Band Matching Pad Site <-> Polyimide Protective Coverlay - same lamination rule, patch area left clear."
+  },
+  {
+    "delta": { "x": 0, "y": 0, "z": 0 },
+    "label": "conformal adhesive mount",
+    "source": "helmet_shell",
+    "target": "rf_shield_ground",
+    "description": "Helmet Shell <-> Underside RF Shield / Ground Plane - the flex assembly mounts externally on the helmet side (Design 3: external side-mounted, not cut into the shell). Shield faces the head, patches face outward. Helmet model, shell material and approved mounting method [TO BE CLARIFIED]."
+  }
+]

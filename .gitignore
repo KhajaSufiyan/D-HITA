@@ -1,0 +1,33 @@
+# --- CST Studio Suite ---
+# A project is Name.cst plus a sibling folder Name/ holding results and caches.
+# Keep the .cst file (if small); drop the regenerable bulk.
+**/Result/
+**/Temp/
+**/Model/3D/
+**/Model/Cache/
+*.lok
+*.cstbak
+*.log
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# --- KiCad ---
+*-backups/
+*.kicad_prl
+fp-info-cache
+*.bak
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# --- Large binaries: use Git LFS or a Release attachment instead ---
+# (uncomment if you decide to keep them out of git entirely)
+# *.cst
