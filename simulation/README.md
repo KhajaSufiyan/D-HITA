@@ -2,7 +2,9 @@
 
 | File | Purpose |
 |---|---|
-| `cst_software_settings.md` | Project units and the `FR4_substrate` material dialog dump. **Note:** this is FR4 with ε = 1 and no loss — it does not describe the `Kapton_flex` (εr 3.5, tan δ 0.002) or aramid (εr 3.8, tan δ 0.02) materials the designs actually use. Those definitions still need to be added. |
+| `cst_software_settings.md` | Project units and the `FR4_substrate` material dialog dump. **Note:** this is FR4 with ε = 1 and no loss — it does not describe the `Kapton_flex` or aramid materials the designs actually use (see `materials.md`). |
+| `materials.md` | `Kapton_flex`, `Aramid` and PEC definitions **reconstructed from the spec values** (not exported from CST — verify against your project) |
+| `helmet/` | Helmet shell STL generated from the v2 spec, and the (still undefined) head-model plan |
 | `cst_lessons_and_lband_plan.md` | Ten lessons from the UHF runs and the L-band build plan (2026-09-27) |
 | `dhita_geometry_spec_v2.md` | v2 curved, separated boards: construction method, parameters, tables, developed dimensions, results, open issues (2026-09-29) |
 | `results/` | Exported S-parameters, patterns and screenshots (none added yet — see its README) |

@@ -19,4 +19,4 @@ Five papers have been identified and read. Links are by DOI only; PDFs are delib
 ## Operational sources
 
 - SIH26185 problem statement (MHA / NSG)
-- NSG tender archive: Digital UHF hand-held radio sets (20 W / 4 W), digital UHF repeater (40 W), wireless body-worn video system (2026 listings). Add the exact URLs here.
+- MHA/CRPF QRs for digital UHF radio sets (June 2025) and the NSG 2026 tender listings (radio sets, repeater, body-worn video) — URLs and findings in [`../requirements/sources.md`](../requirements/sources.md)

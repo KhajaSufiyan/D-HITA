@@ -23,7 +23,7 @@ The PS does **not** state 300 MHz–3 GHz, or any gain, bandwidth, range, substr
 
 | Metric | UHF | L-band |
 |---|---|---|
-| Band | 403–470 MHz (see caveat) | 1350–1450 MHz working assumption (1.30–1.40 GHz in the early plan) — `[TO BE CLARIFIED]` |
+| Band | 403–470 MHz (sourced, see `sources.md`) | 1350–1450 MHz working assumption (1.30–1.40 GHz in the early plan) — `[TO BE CLARIFIED]` |
 | S11 at resonance | ≤ −10 dB (accepted ≤ −7 dB) | ≤ −10 dB (accepted ≤ −7 dB) |
 | Radiation efficiency | — | ≥ 50 % (accepted ≥ 35 %) |
 | Gain | — | ≥ 5 dBi (accepted ≥ 3.5 dBi) |
@@ -31,4 +31,6 @@ The PS does **not** state 300 MHz–3 GHz, or any gain, bandwidth, range, substr
 
 L-band figures come from `simulation/cst_lessons_and_lband_plan.md` §2. No equivalent UHF gain/efficiency targets are recorded in the project files.
 
-**Caveat on the UHF band:** `hardware/d-hita_rf_frontend_CONFIG.json` records 403–470 MHz as confirmed (MHA/CRPF QRs, June 2025, co-signed by NSG), but the source document is not in this repo and the 10 Sep summary PDF still lists UHF endpoints as unconfirmed. Add the source (or a link) here before relying on this in the submission.
+**UHF band source:** 403–470 MHz is stated in the MHA/CRPF QRs for digital UHF radio sets (June 2025, NSG among the co-signers). Link, verification notes and the NSG 2026 tender list are in [`sources.md`](sources.md).
+
+**L-band caution:** no source gives 1350–1450 MHz (or any other L-band range) as the NSG video link. The NSG body-worn-video tender and the earlier MHA camera QRs describe cellular / Wi-Fi / internet relay, not an L-band RF link. Treat the L-band figures above as placeholders until the intended band is confirmed. See [`sources.md`](sources.md) §3.

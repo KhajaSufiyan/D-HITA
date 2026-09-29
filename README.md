@@ -43,12 +43,12 @@ Hit the target; if not, within a **30 % buffer** of target is accepted (e.g. S11
 | Folder | Contents |
 |---|---|
 | [`docs/`](docs/) | Project summary PDF, decision log, open items, requirement traceability |
-| [`requirements/`](requirements/) | SIH26185 requirements and working numeric targets |
+| [`requirements/`](requirements/) | SIH26185 requirements, working numeric targets, and a source register (UHF band, NSG tenders) |
 | [`research/`](research/) | Reference list (five papers) — comparison matrix not yet built |
-| [`simulation/`](simulation/) | CST settings, lessons learned, geometry spec v2, results |
+| [`simulation/`](simulation/) | CST settings, materials, lessons learned, geometry spec v2, helmet model, results |
 | [`hardware/`](hardware/) | Build guide, parts list (CSV), config + connection JSON, archived rejected design |
 | [`measurement/`](measurement/) | VNA procedure pointer and log templates (no data yet) |
-| [`analysis/`](analysis/) | Python helpers (flat-artwork dimension converter) |
+| [`analysis/`](analysis/) | Python tools: S11 report, sim-vs-measurement comparison, flat-artwork converter, helmet STL generator (self-tested) |
 | [`presentation/`](presentation/) | SIH slide-deck structure reference |
 | [`images/`](images/) | Screenshots and renders (to be added) |
 
@@ -56,7 +56,8 @@ Hit the target; if not, within a **30 % buffer** of target is accepted (e.g. S11
 
 - The build guide, parts CSV and config/connection JSON describe **v1** (single flat 250 × 445 mm sheet). v2 requires **two separate flex parts**. These files have not yet been updated to v2 — see [`hardware/README.md`](hardware/README.md).
 - `docs/SIH26185_Project_Summary_DHITA.pdf` is dated 10 Sep 2026 and states that no simulation results exist; that is no longer true.
-- The UHF 403–470 MHz band is recorded as confirmed in the config file, but the source document is not in this repo. See [`requirements/README.md`](requirements/README.md).
+- The UHF 403–470 MHz band now has a primary source (MHA/CRPF QRs, June 2025, NSG co-signed) — see [`requirements/sources.md`](requirements/sources.md).
+- **The L-band video-link frequency is unsourced.** The NSG body-worn-video tender describes relay over a cellular network and the internet, with no RF band or L-band requirement; the earlier MHA camera QRs list 4G/3G + Wi-Fi. The PS still asks for L-band, but the 1350–1450 MHz figure has no source. Details and next step in [`requirements/sources.md`](requirements/sources.md) §3.
 
 ## Open items
 
@@ -64,4 +65,4 @@ See [`docs/OPEN_ITEMS.md`](docs/OPEN_ITEMS.md). Highlights: exact NSG L-band vid
 
 ## Team
 
-Roster `[TO BE CLARIFIED]`.
+Roster `[TO BE CLARIFIED]` — see [`TEAM.md`](TEAM.md) (template, to be filled in).

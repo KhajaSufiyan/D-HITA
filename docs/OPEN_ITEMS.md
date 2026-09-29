@@ -3,11 +3,14 @@
 Collected from the summary PDF, build guide, config JSON and geometry spec v2.
 
 ## Requirements and sources
-- Exact NSG L-band video link frequency `[TO BE CLARIFIED]` (1350–1450 MHz is a working assumption; the L-band plan used 1.30–1.40 GHz)
-- Source document for the UHF 403–470 MHz band (config records it as MHA/CRPF QRs, June 2025, co-signed by NSG; the 10 Sep summary PDF still lists UHF endpoints as unconfirmed)
-- NSG radio model(s) and body-worn video RF link
+- **L-band video link frequency: unsourced.** The NSG body-worn-video tender and the earlier MHA camera QRs describe cellular / Wi-Fi / internet relay, not an L-band RF link (see `requirements/sources.md` §3). The 1350–1450 MHz assumption (and the 1.30–1.40 GHz in the early plan) has no source. Ask the SIH mentors / NSG nodal contact; find the MHA body-worn-camera QRs (V3)
+- Which transmit power class (1.4 W QR hand-held; 4 W, 20 W, 40 W in NSG tenders) would feed the helmet antenna — matters for head exposure / SAR
+- NSG radio model(s)
 - Numeric targets: gain, bandwidth criterion, S11/VSWR threshold, thickness, mass
 - Ruggedness / environmental standard; ballistic / impact validation method
+- Section/page numbers for the UHF source and the tender PDFs (retrieved through automated summaries; open and cite properly)
+
+_Resolved 2026-09-30:_ source for the UHF 403–470 MHz band (MHA/CRPF QRs, June 2025) — see `requirements/sources.md`.
 
 ## Simulation
 - v2 UHF match is −7.6 dB against a −10 dB target; feed position `uFx` not swept
