@@ -1,6 +1,7 @@
 # D-HITA — Dual-band Helmet-Integrated Tactical Antenna
 
-**SIH26185 · Ministry of Home Affairs / National Security Guard (Police II Division) · Category: Hardware**
+**SIH26185 · Ministry of Home Affairs / National Security Guard (Police II Division) · Category: Hardware**  
+**Team: Tech Elite-X (Team ID: 150092) · Theme: Robotics and Drones**
 
 A lightweight, flexible, low-profile antenna that moves tactical-radio and body-worn-video antennas from the vest to the helmet, for NSG operators working in urban close-quarter-battle (CQB) environments. It is **passive** (no battery, MCU or switch), covers **UHF** (radio) and **L-band** (video) with two independent probe-fed microstrip patches on Kapton flex, and uses the underside ground plane as a head-isolation shield. Each band has its own U.FL output and 50 Ω coax pigtail.
 
@@ -49,7 +50,7 @@ Hit the target; if not, within a **30 % buffer** of target is accepted (e.g. S11
 | [`hardware/`](hardware/) | Build guide, parts list (CSV), config + connection JSON, archived rejected design |
 | [`measurement/`](measurement/) | VNA procedure pointer and log templates (no data yet) |
 | [`analysis/`](analysis/) | Python tools: S11 report, sim-vs-measurement comparison, flat-artwork converter, helmet STL generator (self-tested) |
-| [`presentation/`](presentation/) | SIH slide-deck structure reference |
+| [`presentation/`](presentation/) | Official SIH 2026 slide deck (PPTX, PDF, and slide previews) |
 | [`images/`](images/) | Screenshots and renders (to be added) |
 
 ## Known inconsistencies (being resolved)
